@@ -1,0 +1,22 @@
+::NSLOOKUP::
+	// simple terminal lookup
+		nslookup scanme.nmap.org
+	
+							
+::NMAP::	
+	// simple double verbose scan
+		nmap -vv scanme.nmap.org
+				
+	// scanning with output
+		nmap -oG - 10.0.2.0-255 -p 22 -vv >> catch
+			// oG=outputable
+			// p=port
+			// vv=doubleVerbose	
+		
+	// taking the catch and awking into catch_ips	
+		cat catch | grep Up | awk -F " " '{print $2}' >> catch_ips
+		
+	// using the ip-list
+		nmap -iL catch_ips -vv
+		
+
